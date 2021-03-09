@@ -3,7 +3,9 @@ from typing import NamedTuple
 
 
 class HTMLLinkParser(HTMLParser):
-    hrefs = []
+    def __init__(self):
+        super().__init__()
+        self.hrefs = []
 
     def handle_starttag(self, tag: str, attrs: NamedTuple) -> None:
         """
