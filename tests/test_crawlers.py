@@ -92,7 +92,7 @@ class CrawlerTest(AsyncTestCase):
         queue_url = 'https://www.example.test/'
         self.crawler._add_to_queue(queue_url)
 
-        await self.crawler._start_worker()
+        await self.crawler._start_worker(name='worker-1')
 
         self.assertEqual(self.crawler.queue.qsize(), 0)
         self.assertDictEqual(

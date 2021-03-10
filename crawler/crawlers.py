@@ -55,27 +55,33 @@ class Crawler:
                 self.visited_urls[k] = list(v)
             file.write(json.dumps(self.visited_urls, indent=2))
 
-    async def _start_worker(self):
+    async def _start_worker(self, name):
         """
         Start worker to consume the Queue with URLs.
         """
+        num_retries = 0
 
         while True:
-            queue_url = await self.queue.get()
-
             try:
+                queue_url = self.queue.get_nowait()
                 urls = URLScraper(url=queue_url).run()
 
                 for url in urls:
                     self._add_to_visited_urls(queue_url, url)
                     self._add_to_queue(url)
 
-            finally:
+                logging.info(f'{name} crawled URL: {queue_url}')
                 self.queue.task_done()
-                logging.info(f'Crawled URL: {queue_url}')
+                num_retries = False
 
-            if self.queue.qsize() == 0:
-                break
+            except asyncio.QueueEmpty:
+                num_retries += 1
+
+            finally:
+                if num_retries > 3:
+                    break
+
+                await asyncio.sleep(1)
 
     async def run(self):
         """
@@ -87,12 +93,12 @@ class Crawler:
         if self.num_workers <= 0:
             raise ValueError('The number of workers must be higher than 1.')
 
-        logging.info(f'Starting to crawl...')
-
         await self.queue.put(self.initial_url)
 
         for i in range(self.num_workers):
-            task = asyncio.create_task(self._start_worker())
+            name = f'Worker-{i + 1}'
+            logging.info(f'Starting {name}')
+            task = asyncio.create_task(self._start_worker(name=name))
             tasks.append(task)
 
         await asyncio.gather(*tasks, return_exceptions=True)
