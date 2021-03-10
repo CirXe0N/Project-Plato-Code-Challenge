@@ -1,6 +1,6 @@
 from aiounittest import AsyncTestCase
 
-from queues import UniqueQueue
+from crawler.queues import UniqueQueue
 
 
 class UniqueQueueTest(AsyncTestCase):

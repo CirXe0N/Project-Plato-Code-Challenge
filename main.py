@@ -2,7 +2,7 @@ import argparse
 import asyncio
 from pathlib import Path
 
-from crawlers import Crawler
+from crawler.crawlers import Crawler
 
 
 def main():

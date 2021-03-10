@@ -6,8 +6,8 @@ from unittest import mock
 from aiounittest import AsyncTestCase
 
 
-from crawlers import Crawler
-from scrapers import URLScraper
+from crawler.crawlers import Crawler
+from crawler.scrapers import URLScraper
 
 
 class CrawlerTest(AsyncTestCase):

@@ -3,8 +3,8 @@ import json
 import logging
 from pathlib import Path
 
-from queues import UniqueQueue
-from scrapers import URLScraper
+from crawler.queues import UniqueQueue
+from crawler.scrapers import URLScraper
 
 logging.basicConfig(
     level=logging.INFO,

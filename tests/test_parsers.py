@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from parsers import HTMLLinkParser
+from crawler.parsers import HTMLLinkParser
 
 
 class HTMLLinkParserTest(TestCase):

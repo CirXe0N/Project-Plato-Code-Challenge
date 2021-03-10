@@ -1,7 +1,7 @@
 from unittest import TestCase, mock
 from unittest.mock import MagicMock
 
-from scrapers import URLScraper
+from crawler.scrapers import URLScraper
 
 
 class MockResponse:
@@ -19,7 +19,7 @@ class URLScraperTest(TestCase):
         self.scraper = URLScraper(url='https://www.example.test/')
 
     @mock.patch(
-        'scrapers.urlopen',
+        'crawler.scrapers.urlopen',
         return_value=MockResponse(body=b'Test Body')
     )
     def test_GET_request(self, mock_urlopen: MagicMock) -> None:
@@ -37,7 +37,7 @@ class URLScraperTest(TestCase):
         self.assertEqual(response.status, 200)
         self.assertEqual(response.read().decode(), 'Test Body')
 
-    @mock.patch('scrapers.urlopen')
+    @mock.patch('crawler.scrapers.urlopen')
     def test_run(self, mock_urlopen: MagicMock) -> None:
         """
         Test the retrieval of URL's from a HTML response.

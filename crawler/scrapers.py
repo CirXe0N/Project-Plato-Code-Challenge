@@ -3,7 +3,7 @@ from typing import Generator
 from urllib.parse import urljoin, urldefrag
 from urllib.request import Request, urlopen
 
-from parsers import HTMLLinkParser
+from crawler.parsers import HTMLLinkParser
 
 
 class URLScraper:
