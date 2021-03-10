@@ -31,11 +31,11 @@ class URLScraperTest(TestCase):
 
         mock_args = mock_urlopen.call_args.args
 
-        assert mock_urlopen.call_count == 1
-        assert mock_args[0].full_url == 'https://www.example.test/'
-        assert mock_args[0].method == 'GET'
-        assert response.status == 200
-        assert response.read().decode() == 'Test Body'
+        self.assertEqual(mock_urlopen.call_count, 1)
+        self.assertEqual(mock_args[0].full_url, 'https://www.example.test/')
+        self.assertEqual(mock_args[0].method, 'GET')
+        self.assertEqual(response.status, 200)
+        self.assertEqual(response.read().decode(), 'Test Body')
 
     @mock.patch('scrapers.urlopen')
     def test_run(self, mock_urlopen: MagicMock) -> None:
@@ -53,7 +53,11 @@ class URLScraperTest(TestCase):
         hrefs = self.scraper.run()
         hrefs = list(hrefs)
 
-        assert mock_urlopen.call_count == 1
-        assert len(hrefs) == 2
-        assert hrefs[0] == 'https://www.example.test/a/b/c/'
-        assert hrefs[1] == 'https://www.example.test/d/f/g/'
+        self.assertEqual(mock_urlopen.call_count, 1)
+        self.assertListEqual(
+            hrefs,
+            [
+                'https://www.example.test/a/b/c/',
+                'https://www.example.test/d/f/g/'
+            ]
+        )

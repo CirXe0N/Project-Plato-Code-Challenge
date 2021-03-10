@@ -36,14 +36,18 @@ class HTMLLinkParserTest(TestCase):
 
         self.parser.feed(html)
 
-        assert len(self.parser.hrefs) == 10
-        assert self.parser.hrefs[0] == 'https://www.example.test/'
-        assert self.parser.hrefs[1] == 'https://www.example.test/index.html'
-        assert self.parser.hrefs[2] == '/index.html'
-        assert self.parser.hrefs[3] == 'index.html'
-        assert self.parser.hrefs[4] == '#header1'
-        assert self.parser.hrefs[5] == 'ftp://www.example.test/'
-        assert self.parser.hrefs[6] == 'mailto:test@test.com'
-        assert self.parser.hrefs[7] == "javascript:alert('Hello');"
-        assert self.parser.hrefs[8] == ''
-        assert self.parser.hrefs[9] is None
+        self.assertListEqual(
+            self.parser.hrefs,
+            [
+                'https://www.example.test/',
+                'https://www.example.test/index.html',
+                '/index.html',
+                'index.html',
+                '#header1',
+                'ftp://www.example.test/',
+                'mailto:test@test.com',
+                "javascript:alert('Hello');",
+                '',
+                None
+            ]
+        )

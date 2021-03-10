@@ -1,6 +1,6 @@
 from http.client import HTTPResponse
 from typing import Generator
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urldefrag
 from urllib.request import Request, urlopen
 
 from parsers import HTMLLinkParser
@@ -44,4 +44,5 @@ class URLScraper:
         parser.feed(response.read().decode())
 
         for href in parser.hrefs:
-            yield urljoin(self.url, href)
+            path, _ = urldefrag(href)
+            yield urljoin(self.url, path)
