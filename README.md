@@ -1,4 +1,4 @@
-## Project Plato - Code Challenge
+## WebCrawler - Code Challenge
 
 This is a project based on an assignment given by `undisclosed` company.
 The assignment description and currently implemented requirements can be found [here](#assignment-description).
