@@ -1,6 +1,6 @@
 ## Project Plato - Code Challenge
 
-This is a project based on an assignment given by [Project Plato](https://kmprojectplatocom.recruitee.com/).
+This is a project based on an assignment given by `undisclosed` company.
 The assignment description and currently implemented requirements can be found [here](#assignment-description).
 
 ### Table of contents:
